@@ -4,7 +4,7 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
-    "files.exclude": {
+    "search.exclude": {
         "**/node_modules": true
     },
     "black-formatter.args": [
