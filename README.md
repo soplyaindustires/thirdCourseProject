@@ -42,7 +42,7 @@ npm install -g expo-cli
 ### 6. Клонирование репозитория
 В терминале введите команду для клонирования проекта:  
 ```bash
-git clone https://github.com/neoplasmes/project3.git
+git clone https://github.com/soplyaindustires/thirdCourseProject.git
 ```
 
 ### 7. Переход в папку проекта
