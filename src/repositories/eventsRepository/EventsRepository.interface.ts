@@ -1,1 +1,1 @@
-interface EventsRepository {}
+export interface EventsRepository {}
