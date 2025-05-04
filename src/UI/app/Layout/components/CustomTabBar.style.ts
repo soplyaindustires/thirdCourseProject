@@ -1,13 +1,12 @@
 import { Platform, StyleSheet } from 'react-native';
+import { colorPalette, paddingPalette } from '../../../designSystem/constants.style';
 
 export const customTabBarStyle = StyleSheet.create({
     tabBar: {
         display: 'flex',
         flexDirection: 'row',
-        backgroundColor: '#fff',
-        borderTopWidth: 1,
-        borderTopColor: '#e0e0e0',
-        paddingTop: 10,
+        backgroundColor: colorPalette.backgroundPrimary,
+        paddingTop: paddingPalette.medium,
         elevation: 5,
     },
     tab: {
@@ -16,10 +15,6 @@ export const customTabBarStyle = StyleSheet.create({
         justifyContent: 'center',
     },
     iconContainer: {
-        marginBottom: 4,
-    },
-    label: {
-        fontSize: 12,
-        fontWeight: '600',
+        paddingBottom: paddingPalette.small,
     },
 });
