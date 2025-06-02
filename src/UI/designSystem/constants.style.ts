@@ -31,3 +31,11 @@ export const paddingPalette = {
     big: 16,
     large: 32,
 };
+
+/**
+ * Использовать везде, где есть свойство "border-radius"
+ */
+export const borderRadiusPalette = {
+    small: 6,
+    medium: 12,
+};

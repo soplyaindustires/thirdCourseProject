@@ -1,5 +1,5 @@
-export type  EventInfo = {
+export type EventInfo = {
     title: string;
     date: string;
     location: string;
-}
+};
