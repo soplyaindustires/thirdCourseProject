@@ -2,11 +2,12 @@ import { HseEvent } from '../EventsRepository/EventsRepository.interface';
 
 export type User = {
     id: number;
-    login: string;
+    login: string; // email
     password: string;
     role: 'user' | 'creator';
-    registeredEvents: number[];
-    createdEvents: number[];
+    registeredEvents: number[]; // Список ID событий, куда записан пользователь.
+    createdEvents: number[]; // Список ID событий, которые он создал.
+	createdDate: string; // Дата регистрации
 };
 
 /**
@@ -15,16 +16,29 @@ export type User = {
  */
 export interface UserRepository {
     /**
-     * пык мык
-     * @param id
+     * Получить пользователя по его ID
+     * @param id - Уникальный идентификатор пользователя
      */
     getUserById(id: number): Promise<User>;
-    /**
-     * пук как
-     * @param login
-     * @param password
-     */
-    authorizeUser(login: string, password: string): Promise<any>;
 
-    registerUser(): Promise<any>;
+    /**
+     * Авторизация пользователя
+     * @param login - Логин (или email)
+     * @param password - Пароль
+     */
+    authorizeUser(login: string, password: string): Promise<User>;
+
+    /**
+     * Регистрация нового пользователя
+     * @param login - Логин (или email)
+     * @param password - Пароль
+     * @param role - Роль пользователя ('user' или 'creator')
+     */
+    registerUser(login: string, password: string, role: 'user' | 'creator'): Promise<User>;
+
+    /**
+     * Получить список всех пользователей (полезно на этапе разработки)
+     */
+    /* getAllUsers(): Promise<User[]>; */
 }
+
