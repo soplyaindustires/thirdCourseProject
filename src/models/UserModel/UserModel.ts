@@ -1,4 +1,4 @@
-import { UserRepository } from '../../repositories/UserRepository/UserRepository.interface';
+import { User, UserRepository } from '../../repositories/UserRepository/UserRepository.interface';
 
 export class UserModel {
     private repository: UserRepository;
@@ -7,8 +7,25 @@ export class UserModel {
         this.repository = repository;
     }
 
-    async getUserData(login: string) {
-        const data = await this.repository.getUserById(12);
-        return data;
-    }
+	/**
+   * Получить пользователя по ID
+   */
+	async getUserById(id: number): Promise<User> {
+		return await this.repository.getUserById(id);
+	}
+
+  /**
+   * Авторизация пользователя
+   */
+	async authorizeUser(login: string, password: string): Promise<User> {
+		return await this.repository.authorizeUser(login, password);
+	}
+
+  /**
+   * Регистрация нового пользователя
+   */
+	async registerUser(login: string, password: string, role: 'user' | 'creator'): Promise<User> {
+		return await this.repository.registerUser(login, password, role);
+	}	
+	
 }
