@@ -19,6 +19,8 @@ export const EventInfo = ({ eventId }: EventInfoProps) => {
     const start = new Date(data.start);
     const end = new Date(data.end);
 
+    // const day
+
     return (
         <Stack padding="big">
             <View>
