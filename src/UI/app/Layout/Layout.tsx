@@ -14,17 +14,12 @@ export const Layout = () => {
             <Tabs.Screen
                 name="Home"
                 component={EventView}
-                options={{ title: 'Abdul', headerShown: true }}
+                options={{ headerShown: false }}
             />
             <Tabs.Screen
                 name="Profile"
                 component={ProfileScreen}
-                options={{ title: 'Profile', headerShown: true }}
-            />
-            <Tabs.Screen
-                name="Settings"
-                component={() => <View></View>}
-                options={{ title: 'Settings', headerShown: true }}
+                options={{ headerShown: false }}
             />
         </Tabs.Navigator>
     );
