@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../app/Auth/AuthProvider';
 import { profileScreenStyle } from './ProfileScreen.style';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const ProfileScreen = () => {
     //юзаем навигацию Auth-навигатора, потому что так надо
@@ -14,12 +15,13 @@ export const ProfileScreen = () => {
     };
 
     return (
-        <View style={profileScreenStyle.screen}>
-            <HseButton
-                onPress={onPress}
-                text="Ыойти"
-                color="gray"
-            />
-        </View>
+        <SafeAreaView>
+            <View style={profileScreenStyle.screen}>
+                <HseButton
+                    onPress={onPress}
+                    color="gray"
+                />
+            </View>
+        </SafeAreaView>
     );
 };
