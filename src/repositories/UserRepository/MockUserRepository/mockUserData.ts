@@ -9,6 +9,10 @@ export const mockUsersData: User[] = [
     registeredEvents: [101],
     createdEvents: [],
     createdDate: '2025-01-15T09:30:00Z',
+	fullName: 'Пыкмыкова Мыка Писечкина',
+    educationalProgram: 'Сосу хуи',
+    group: '22СОСУНЫ1',
+    course: 3,
   },
   {
     id: 2,
@@ -18,5 +22,9 @@ export const mockUsersData: User[] = [
     registeredEvents: [102],
     createdEvents: [103],
     createdDate: '2024-12-01T12:00:00Z',
+	fullName: 'Писина Пися Мыковна',
+    educationalProgram: 'Хуи сосу',
+    group: '23СОСУНЫ1',
+    course: 2,
   },
 ]; //фейк данные

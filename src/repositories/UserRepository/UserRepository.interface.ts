@@ -8,6 +8,10 @@ export type User = {
     registeredEvents: number[]; // Список ID событий, куда записан пользователь.
     createdEvents: number[]; // Список ID событий, которые он создал.
 	createdDate: string; // Дата регистрации
+	fullName: string; 
+	educationalProgram: string; 
+	group: string;           
+	course: number;          
 };
 
 /**
@@ -34,7 +38,7 @@ export interface UserRepository {
      * @param password - Пароль
      * @param role - Роль пользователя ('user' или 'creator')
      */
-    registerUser(login: string, password: string, role: 'user' | 'creator'): Promise<User>;
+    registerUser(data: Omit<User, 'id' | 'registeredEvents' | 'createdEvents' | 'createdDate'>): Promise<User>;
 
     /**
      * Получить список всех пользователей (полезно на этапе разработки)

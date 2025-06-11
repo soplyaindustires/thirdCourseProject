@@ -24,8 +24,8 @@ export class UserModel {
   /**
    * Регистрация нового пользователя
    */
-	async registerUser(login: string, password: string, role: 'user' | 'creator'): Promise<User> {
-		return await this.repository.registerUser(login, password, role);
-	}	
+	async registerUser(data: Omit<User, 'id' | 'registeredEvents' | 'createdEvents' | 'createdDate'>): Promise<User> {
+  		return await this.repository.registerUser(data);
+	}
 	
 }
