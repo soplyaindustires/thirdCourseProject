@@ -10,7 +10,7 @@ type AuthorizationContext = {
      * @param username
      * @returns
      */
-    login: (password: string, username: string) => void;
+    login: (username: string, password: string) => Promise<void>;
     logout: () => void;
 };
 
@@ -20,15 +20,16 @@ export const AuthContext = ({ children }: PropsWithChildren<{}>) => {
     const [user, setUser] = useState<AuthorizationContext['user']>(null);
 
     const login = useCallback(
-        (password: string, username: string) => {
-            appUserModel.authorizeUser(username, password).then(data => setUser(data));
+        async (username: string, password: string) => {
+            const data = await appUserModel.authorizeUser(username, password);
+            setUser(data);
         },
         [user]
     );
 
     const logout = useCallback(() => setUser(null), [user]);
 
-    return <authorizationContext.Provider value={{ user, login, logout }}></authorizationContext.Provider>;
+    return <authorizationContext.Provider value={{ user, login, logout }}>{children}</authorizationContext.Provider>;
 };
 
 export const useAuth = () => {

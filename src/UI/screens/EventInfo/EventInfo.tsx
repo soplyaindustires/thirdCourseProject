@@ -1,20 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Stack } from '../../designSystem/components/Stack/Stack';
-import { SafeAreaView, View } from 'react-native';
+import { Dimensions, ScrollView, View } from 'react-native';
 import { HseText } from '../../designSystem/components/HseText/HseText';
-import { dummyEvents } from '../../widgets/EventList/dummyEvent';
-import { ScrollView } from 'react-native-reanimated/lib/typescript/Animated';
 import { formatEventPeriod } from './helpers';
 import { HseButton } from '../../designSystem/components/HseButton/HseButton';
 import { EventInfoStyle } from './EventInfo.style';
 import { openURL } from 'expo-linking';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { EventStackParamList } from '../../app/Layout/routes/EventsRoute';
+import { appEventModel } from '../../../utils/models/models';
+import { HseEvent } from '../../../repositories/EventsRepository/EventsRepository.interface';
+import { GoBackButton } from '../../designSystem/components/GoBackButton/GoBackButton';
+import { GoBackButtonBlured } from '../../designSystem/components/GoBackButton/GoBackButtonBlured';
+import { colorPalette } from '../../designSystem/constants.style';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigationState } from '@react-navigation/native';
+import { useAuth } from '../../app/Auth/AuthContext/AuthContext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { ProfileStackParamList } from '../../app/Layout/routes/ProfileRoute';
 
-type EventInfoProps = {
+export type EventInfoRouteParams = {
     eventId: number;
+    source?: 'Events' | 'Profile';
 };
+type EventInfoProps = NativeStackScreenProps<EventStackParamList & ProfileStackParamList, 'EventInfo'>;
 
-export const EventInfo = ({ eventId }: EventInfoProps) => {
-    const data = dummyEvents.find(({ id }) => id === eventId);
+export const EventInfo = ({ navigation, route }: EventInfoProps) => {
+    const { eventId } = route.params;
+    const { user } = useAuth();
+
+    const routeNames = useNavigationState(state => state.routeNames);
+
+    const [data, setData] = useState<HseEvent>();
+    const [isError, setIsError] = useState<boolean>();
+
+    useEffect(() => {
+        const request = async () => {
+            try {
+                const response = await appEventModel.getEventById(eventId);
+                setData(response);
+            } catch {
+                setIsError(true);
+            }
+        };
+
+        request();
+    }, []);
 
     if (!data) {
         return null;
@@ -36,21 +67,78 @@ export const EventInfo = ({ eventId }: EventInfoProps) => {
     };
 
     const onRegistrationPress = () => {
-        // Добавить внесение в регистрацию
         openURL('https://google.com');
     };
 
+    const onGoBackPress = () => {
+        navigation.goBack();
+    };
+
+    const onDeletePress = () => {
+        appEventModel.deleteEvent(eventId);
+        navigation.goBack();
+        // navigation.navigate()
+    };
+
     return (
-        <SafeAreaView>
-            <Stack padding="big">
-                <View>
-                    <HseText>Событие</HseText>
-                </View>
+        <SafeAreaView
+            style={{
+                height: '100%',
+                backgroundColor: colorPalette.backgroundPrimary,
+            }}
+        >
+            <Stack
+                padding="big"
+                style={{
+                    width: '100%',
+                    height: Dimensions.get('window').height * 0.9,
+                    paddingBottom: 0,
+                }}
+            >
+                <Stack
+                    justify="flex-start"
+                    gap="big"
+                    direction="row"
+                    style={[EventInfoStyle.maxWidth]}
+                >
+                    <GoBackButton onPress={onGoBackPress} />
+                    <HseText
+                        variant="title"
+                        size={24}
+                    >
+                        Событие
+                    </HseText>
+                    {user?.role === 'creator' && (
+                        <HseButton
+                            color="transparent"
+                            style={{ marginLeft: 'auto' }}
+                            onPress={onDeletePress}
+                        >
+                            <MaterialCommunityIcons
+                                name="trash-can"
+                                size={24}
+                            />
+                        </HseButton>
+                    )}
+                </Stack>
                 <View style={EventInfoStyle.delimiter} />
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <Stack gap="medium-big">
-                        <HseText variant="title">{data.name}</HseText>
-                        <Stack gap="medium">
+                    <Stack
+                        gap="medium-big"
+                        align="flex-start"
+                        justify="flex-start"
+                        style={{ minHeight: '100%' }}
+                    >
+                        <HseText
+                            variant="title"
+                            size={24}
+                        >
+                            {data.title}
+                        </HseText>
+                        <Stack
+                            gap="medium"
+                            align="flex-start"
+                        >
                             <View>
                                 <HseText>{startString}</HseText>
                             </View>
@@ -62,18 +150,29 @@ export const EventInfo = ({ eventId }: EventInfoProps) => {
                             </View>
                         </Stack>
                         <HseText>{data.description}</HseText>
-                        <Stack direction="row">
+                        <Stack
+                            direction="row"
+                            justify="space-between"
+                            style={[EventInfoStyle.maxWidth, { marginTop: 'auto' }]}
+                        >
                             <HseButton
                                 onPress={onMoreInfoPress}
                                 color="gray"
+                                width={'38%'}
                             >
-                                Подробнее
+                                <HseText size={18}>Подробнее</HseText>
                             </HseButton>
                             <HseButton
                                 onPress={onRegistrationPress}
                                 color="blue"
+                                width={'60%'}
                             >
-                                Зарегистрироваться
+                                <HseText
+                                    size={18}
+                                    color="backgroundPrimary"
+                                >
+                                    Зарегистрироваться
+                                </HseText>
                             </HseButton>
                         </Stack>
                     </Stack>

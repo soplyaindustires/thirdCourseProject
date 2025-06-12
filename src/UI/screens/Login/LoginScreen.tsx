@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HseText } from '../../designSystem/components/HseText/HseText';
 import { Stack } from '../../designSystem/components/Stack/Stack';
+import { useAuth } from '../../app/Auth/AuthContext/AuthContext';
+import { colorPalette } from '../../designSystem/constants.style';
 
 type LoginScreenProps = NativeStackScreenProps<AuthStackParamList, 'Login'>;
 
@@ -14,12 +16,39 @@ export const LoginScreen = ({ navigation }: LoginScreenProps) => {
     const [login, setLogin] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    const [wrongCredits, setWrongCredits] = useState<boolean>(false);
+
+    const { login: authorizeUser } = useAuth();
+
     const onLoginPress = () => {
-        navigation.replace('Main');
+        authorizeUser(login.trim(), password.trim())
+            .then(() => {
+                navigation.replace('Main');
+            })
+            .catch(err => {
+                console.log('error');
+                setWrongCredits(true);
+            });
     };
 
     const onWithoutLoginPress = () => {
         navigation.replace('Main');
+    };
+
+    const onLoginChange = (text: string) => {
+        if (wrongCredits) {
+            setWrongCredits(false);
+        }
+
+        setLogin(text);
+    };
+
+    const onPasswordChange = (text: string) => {
+        if (wrongCredits) {
+            setWrongCredits(false);
+        }
+
+        setPassword(text);
     };
 
     return (
@@ -33,17 +62,31 @@ export const LoginScreen = ({ navigation }: LoginScreenProps) => {
                 </Stack>
                 <Stack style={LoginScreenStyle.auth}>
                     <TextInput
-                        style={LoginScreenStyle.input}
+                        style={[
+                            LoginScreenStyle.input,
+                            {
+                                borderColor: wrongCredits ? '#900' : colorPalette.textSecondary,
+                                backgroundColor: wrongCredits ? '#ffb3bb' : colorPalette.backgroundSecondary,
+                            },
+                        ]}
                         placeholder="Логин"
                         value={login}
-                        onChangeText={setLogin}
+                        onChangeText={onLoginChange}
                         autoCapitalize="none"
                     />
                     <TextInput
-                        style={LoginScreenStyle.input}
+                        style={[
+                            LoginScreenStyle.input,
+                            {
+                                borderColor: wrongCredits ? '#900' : colorPalette.textSecondary,
+                                backgroundColor: wrongCredits ? '#ffb3bb' : colorPalette.backgroundSecondary,
+                            },
+                        ]}
                         placeholder="Пароль"
+                        textContentType="password"
+                        secureTextEntry
                         value={password}
-                        onChangeText={setPassword}
+                        onChangeText={onPasswordChange}
                         autoCapitalize="none"
                     />
                     <HseButton
