@@ -1,0 +1,50 @@
+{
+	"users": [
+		{
+			"id": 1,
+			"login": "alice",
+			"password": "password123",
+			"role": "user",
+			"registeredEvents": [
+				101
+			],
+			"createdEvents": [],
+			"createdDate": "2025-01-15T09:30:00Z"
+		},
+		{
+			"id": 2,
+			"login": "creator@hse.ru",
+			"password": "qwerty",
+			"role": "creator",
+			"registeredEvents": [],
+			"createdEvents": [
+				102
+			],
+			"createdDate": "2024-12-01T12:00:00Z"
+		}
+	],
+	"events": [
+		{
+			"id": 101,
+			"title": "Мастер-класс по дизайну",
+			"description": "UX/UI дизайн для начинающих.",
+			"start": "2025-03-10T18:00:00Z",
+			"end": "2025-03-10T20:00:00Z",
+			"place": "Коворкинг 'Цифровой'",
+			"creatorId": 2,
+			"participants": [
+				1
+			]
+		},
+		{
+			"id": 102,
+			"title": "Хакатон по мобильной разработке",
+			"description": "Создайте своё первое приложение за 48 часов!",
+			"start": "2025-04-01T09:00:00Z",
+			"end": "2025-04-03T18:00:00Z",
+			"place": "IT-парк",
+			"creatorId": 2,
+			"participants": []
+		}
+	]
+}

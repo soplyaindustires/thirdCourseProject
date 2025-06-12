@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colorPalette } from '../../designSystem/constants.style';
 
-export const EventViewStyle = StyleSheet.create({
+export const CreatedEventsScreenStyle = StyleSheet.create({
     screen: {
         backgroundColor: colorPalette.backgroundPrimary,
         width: '100%',

@@ -1,34 +1,47 @@
 import { PropsWithChildren } from 'react';
-import { Pressable, Text } from 'react-native';
+import { DimensionValue, Pressable, Text, TextStyle, ViewStyle } from 'react-native';
 import { HseButtonStyle } from './HseButton.style';
+import { Stack, StackProps } from '../Stack/Stack';
 
-type HseButtonProps = {
-    /**
-     * Текст кнопки
-     */
-    text: string;
+type HseButtonProps = PropsWithChildren<{
     /**
      * ширина
      * @default 50
      */
-    width?: number;
+    width?: DimensionValue;
     /**
      * Цвет кнопки в соответствии с дизайн системой
      */
-    color: 'gray' | 'blue';
+    color: 'gray' | 'blue' | 'transparent';
     /**
      * Обработчик нажатия на кнопку
      */
     onPress?: () => void;
-};
+    /**
+     * Расположение текста
+     * @default "center"
+     */
+    align?: StackProps['align'];
+    /**
+     * Доп стили
+     */
+    style?: ViewStyle;
+}>;
 
-export const HseButton = ({ onPress, text, color, width = 50 }: HseButtonProps) => {
+export const HseButton = ({ onPress, color, width = 50, children, align, style }: HseButtonProps) => {
     return (
         <Pressable
             onPress={onPress}
-            style={[HseButtonStyle[color].body, { width: width }]}
+            style={[{ width }, style]}
         >
-            <Text style={HseButtonStyle[color].text}>{text}</Text>
+            <Stack
+                padding="medium-big"
+                borderRadius="big"
+                style={[HseButtonStyle[color].body]}
+                align={align}
+            >
+                {children}
+            </Stack>
         </Pressable>
     );
 };

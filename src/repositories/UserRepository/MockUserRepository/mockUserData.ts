@@ -1,4 +1,4 @@
-import { User } from '../UserRepository.interface'
+import { User } from '../UserRepository.interface';
 
 export const mockUsersData: User[] = [
   {
