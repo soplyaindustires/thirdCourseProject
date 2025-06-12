@@ -34,7 +34,9 @@
 			"creatorId": 2,
 			"participants": [
 				1
-			]
+			],
+			"infoURL": "https://",
+			"registrationURL": "https://"
 		},
 		{
 			"id": 102,
@@ -44,7 +46,9 @@
 			"end": "2025-04-03T18:00:00Z",
 			"place": "IT-парк",
 			"creatorId": 2,
-			"participants": []
+			"participants": [],
+			"infoURL": null,
+			"registrationURL": null
 		}
 	]
 }

@@ -5,7 +5,7 @@ export const getUserById = (userId: number): User | undefined => {
   return db.users.find(u => u.id === userId);
 };
 
-export const registerUser = (userData: Omit<User, 'id' | 'registeredEvents' | 'createdEvents' | 'createdDate'>): User => {
+export const registerUser = (userData: Omit<User, 'id' | 'registeredEvents' | 'createdEvents' | 'createdAt'>): User => {
   const db = readDB();
   const newUser: User = {
     ...userData,

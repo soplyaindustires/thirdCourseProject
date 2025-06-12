@@ -16,6 +16,10 @@ export type User = {
   registeredEvents: number[];
   createdEvents: number[];
   createdDate: string;
+  fullName: string;
+  educationalProgram: string;
+  group: string;
+  course: number;
 };
 
 export type HseEvent = {
@@ -27,6 +31,8 @@ export type HseEvent = {
   place: string;
   creatorId: number;
   participants: number[];
+	infoURL: string | null;    
+  registrationURL: string | null; 
 };
 
 export const readDB = (): DbData => {
