@@ -52,4 +52,6 @@ export interface EventsRepository {
      * @param eventId - ID события
      */
     leaveEvent(userId: number, eventId: number): Promise<void>;
+
+	getEventsByCreator(creatorId: number): Promise<HseEvent[]>;
 }

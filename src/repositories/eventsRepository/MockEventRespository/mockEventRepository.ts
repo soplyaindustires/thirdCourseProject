@@ -58,4 +58,8 @@ export class MockEventsRepository implements EventsRepository {
     const event = this.getEventOrThrow(eventId);
     event.participants = event.participants.filter(id => id !== userId);
   }
+
+  async getEventsByCreator(creatorId: number): Promise<HseEvent[]> {
+  return this.events.filter(event => event.creatorId === creatorId);
+}
 }
