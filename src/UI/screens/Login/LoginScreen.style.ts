@@ -1,15 +1,26 @@
 import { StyleSheet } from 'react-native';
-import { borderRadiusPalette, paddingPalette } from '../../designSystem/constants.style';
+import { borderRadiusPalette, colorPalette, paddingPalette } from '../../designSystem/constants.style';
 
 export const LoginScreenStyle = StyleSheet.create({
     screen: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        height: '100%',
+        width: '100%',
+        backgroundColor: colorPalette.backgroundPrimary,
+    },
+    top: {
+        flexGrow: 1,
+        width: '100%',
+    },
+    auth: {
+        flexGrow: 1,
+        width: '100%',
+    },
+    bottom: {
+        flexGrow: 1,
+        width: '100%',
     },
     input: {
-        height: 50,
+        width: '100%',
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: borderRadiusPalette.medium,
