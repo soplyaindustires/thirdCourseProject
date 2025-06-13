@@ -10,6 +10,8 @@ export const mockEventsData: HseEvent[] = [
     place: 'Кампус Костина, зал 207',
     creatorId: 2,
     participants: [1],
+	 infoURL: "https://",        // ← добавлено
+  	registrationURL: "https://" // ← добавлено
   },
   {
     id: 102,
@@ -20,6 +22,8 @@ export const mockEventsData: HseEvent[] = [
     place: 'Кампус Костина, зал 207',
     creatorId: 2,
     participants: [],
+	 infoURL: "https://",         // ← добавлено
+  registrationURL:"https://" // ← добавлено
   },
   {
     id: 103,
@@ -30,6 +34,8 @@ export const mockEventsData: HseEvent[] = [
     place: 'Кампус Костина, зал 207',
     creatorId: 2,
     participants: [1, 3],
+	 infoURL: "https://",         // ← добавлено
+  registrationURL: "https://" // ← добавлено
   },
 ]; //фейк данные
 
