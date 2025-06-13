@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LoginScreen } from '../../screens/Login/LoginScreen';
 import { Layout } from '../Layout/Layout';
 import { AuthContext } from './AuthContext/AuthContext';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from './constants';
 
 export type AuthStackParamList = {
     Login: undefined;
@@ -29,6 +31,7 @@ export const AuthProvider = () => {
                     />
                 </AuthStack.Navigator>
             </NavigationContainer>
+            <Toast config={toastConfig} />
         </AuthContext>
     );
 };

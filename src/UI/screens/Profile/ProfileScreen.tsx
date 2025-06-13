@@ -1,4 +1,4 @@
-import { Dimensions, Pressable, View } from 'react-native';
+import { Dimensions, Pressable, View, Text } from 'react-native';
 import { HseButton } from '../../designSystem/components/HseButton/HseButton';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -12,6 +12,7 @@ import { useAuth } from '../../app/Auth/AuthContext/AuthContext';
 import { colorPalette } from '../../designSystem/constants.style';
 import React, { useMemo } from 'react';
 import { ProfileStackParamList } from '../../app/Layout/routes/ProfileRoute';
+import Toast from 'react-native-toast-message';
 
 type ProfileScreenProps = NativeStackScreenProps<ProfileStackParamList, 'ProfileScreen'>;
 
@@ -96,7 +97,23 @@ export const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
                             color="black"
                         />
                     </View>
-                    <HseText>{user.login}</HseText>
+                    <Stack align="flex-start">
+                        <HseText
+                            size={18}
+                            variant="title"
+                        >
+                            {user.fullName}
+                        </HseText>
+                        <Stack
+                            justify="flex-start"
+                            direction="row"
+                        >
+                            <HseText
+                                size={16}
+                                color="textSecondary"
+                            >{`${user.educationalProgram}. ${user.course}-й курс, ${user.group}`}</HseText>
+                        </Stack>
+                    </Stack>
                 </Stack>
                 <Stack
                     justify="space-between"

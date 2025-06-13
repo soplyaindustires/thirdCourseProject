@@ -13,4 +13,10 @@ export const EventInfoStyle = StyleSheet.create({
     maxWidth: {
         width: '100%',
     },
+    fieldWithIcon: {
+        display: 'flex',
+        gap: 8,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
 });

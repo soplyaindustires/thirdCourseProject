@@ -25,5 +25,7 @@ export const EventCreationStyle = StyleSheet.create({
         height: '100%',
         width: 1,
         backgroundColor: '#ccc',
+        // marginLeft: paddingPalette.large,
+        // marginRight: paddingPalette.small,
     },
 });

@@ -16,7 +16,7 @@ const stack = createNativeStackNavigator<ProfileStackParamList>();
 
 export const ProfileRoute = () => {
     return (
-        <stack.Navigator screenOptions={{ headerShown: false }}>
+        <stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
             <stack.Screen
                 name="ProfileScreen"
                 component={ProfileScreen}

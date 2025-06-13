@@ -16,8 +16,9 @@ import { colorPalette } from '../../designSystem/constants.style';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigationState } from '@react-navigation/native';
 import { useAuth } from '../../app/Auth/AuthContext/AuthContext';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Feather, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { ProfileStackParamList } from '../../app/Layout/routes/ProfileRoute';
+import Toast from 'react-native-toast-message';
 
 export type EventInfoRouteParams = {
     eventId: number;
@@ -34,11 +35,14 @@ export const EventInfo = ({ navigation, route }: EventInfoProps) => {
     const [data, setData] = useState<HseEvent>();
     const [isError, setIsError] = useState<boolean>();
 
+    const [joined, setJoined] = useState<boolean>();
+
     useEffect(() => {
         const request = async () => {
             try {
                 const response = await appEventModel.getEventById(eventId);
                 setData(response);
+                setJoined(user ? response.participants.includes(user.id) : false);
             } catch {
                 setIsError(true);
             }
@@ -77,7 +81,25 @@ export const EventInfo = ({ navigation, route }: EventInfoProps) => {
     const onDeletePress = () => {
         appEventModel.deleteEvent(eventId);
         navigation.goBack();
-        // navigation.navigate()
+
+        Toast.show({
+            type: 'tomatoToast',
+            text1: `Событие ${data.title} удалено!`,
+        });
+        setTimeout(() => {
+            Toast.hide();
+        }, 2000);
+    };
+
+    const onJoinPress = () => {
+        if (!user) {
+            return;
+        }
+        if (!joined) {
+            appEventModel.joinEvent(user.id, data.id).then(_ => setJoined(true));
+        } else {
+            appEventModel.leaveEvent(user.id, data.id).then(_ => setJoined(false));
+        }
     };
 
     return (
@@ -96,30 +118,54 @@ export const EventInfo = ({ navigation, route }: EventInfoProps) => {
                 }}
             >
                 <Stack
-                    justify="flex-start"
+                    justify="space-between"
                     gap="big"
                     direction="row"
                     style={[EventInfoStyle.maxWidth]}
                 >
-                    <GoBackButton onPress={onGoBackPress} />
-                    <HseText
-                        variant="title"
-                        size={24}
+                    <Stack
+                        justify="flex-start"
+                        gap="big"
+                        direction="row"
                     >
-                        Событие
-                    </HseText>
-                    {user?.role === 'creator' && (
-                        <HseButton
-                            color="transparent"
-                            style={{ marginLeft: 'auto' }}
-                            onPress={onDeletePress}
+                        <GoBackButton onPress={onGoBackPress} />
+                        <HseText
+                            variant="title"
+                            size={24}
                         >
-                            <MaterialCommunityIcons
-                                name="trash-can"
-                                size={24}
-                            />
-                        </HseButton>
-                    )}
+                            Событие
+                        </HseText>
+                    </Stack>
+                    <Stack
+                        direction="row"
+                        justify="flex-start"
+                        gap="medium"
+                    >
+                        {user && (
+                            <HseButton
+                                color={joined ? 'blue' : 'transparent'}
+                                onPress={onJoinPress}
+                            >
+                                <MaterialIcons
+                                    name="event-available"
+                                    color={joined ? colorPalette.backgroundPrimary : colorPalette.textPrimary}
+                                    size={24}
+                                />
+                            </HseButton>
+                        )}
+                        {user?.role === 'creator' && (
+                            <HseButton
+                                color="transparent"
+                                style={{ marginLeft: 'auto' }}
+                                onPress={onDeletePress}
+                            >
+                                <MaterialCommunityIcons
+                                    name="trash-can"
+                                    size={24}
+                                />
+                            </HseButton>
+                        )}
+                    </Stack>
                 </Stack>
                 <View style={EventInfoStyle.delimiter} />
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -131,7 +177,7 @@ export const EventInfo = ({ navigation, route }: EventInfoProps) => {
                     >
                         <HseText
                             variant="title"
-                            size={24}
+                            size={28}
                         >
                             {data.title}
                         </HseText>
@@ -139,16 +185,35 @@ export const EventInfo = ({ navigation, route }: EventInfoProps) => {
                             gap="medium"
                             align="flex-start"
                         >
-                            <View>
-                                <HseText>{startString}</HseText>
+                            <View style={EventInfoStyle.fieldWithIcon}>
+                                <MaterialIcons
+                                    name="calendar-today"
+                                    size={24}
+                                />
+                                <HseText size={20}>{startString}</HseText>
                             </View>
-                            <View>
-                                <HseText>{eventPeriod}</HseText>
+                            <View style={EventInfoStyle.fieldWithIcon}>
+                                <Feather
+                                    name="clock"
+                                    size={24}
+                                />
+                                <HseText size={20}>{eventPeriod}</HseText>
                             </View>
-                            <View>
-                                <HseText>{data.place}</HseText>
+                            <View style={EventInfoStyle.fieldWithIcon}>
+                                <MaterialIcons
+                                    name="place"
+                                    size={24}
+                                />
+                                <HseText size={20}>{data.place}</HseText>
                             </View>
                         </Stack>
+                        <HseText
+                            size={26}
+                            variant="title"
+                            color="textSecondary"
+                        >
+                            Описание
+                        </HseText>
                         <HseText>{data.description}</HseText>
                         <Stack
                             direction="row"

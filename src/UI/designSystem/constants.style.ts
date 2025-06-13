@@ -9,6 +9,10 @@ export const colorPalette = {
      */
     primary: '#007aff',
     /**
+     * Основной цвет бренда потемнее
+     */
+    primaryDark: '#004896',
+    /**
      * Основной цвет фона (белый)
      */
     backgroundPrimary: '#fff',

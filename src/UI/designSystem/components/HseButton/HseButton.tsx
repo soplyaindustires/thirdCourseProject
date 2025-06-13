@@ -32,12 +32,12 @@ export const HseButton = ({ onPress, color, width = 50, children, align, style }
     return (
         <Pressable
             onPress={onPress}
-            style={[{ width }, style]}
+            style={[{ width }]}
         >
             <Stack
                 padding="medium-big"
                 borderRadius="big"
-                style={[HseButtonStyle[color].body]}
+                style={[HseButtonStyle[color].body, style]}
                 align={align}
             >
                 {children}

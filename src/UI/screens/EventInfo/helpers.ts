@@ -28,7 +28,7 @@ export const formatEventPeriod = (start: Date, end: Date): string => {
 
     if (isSameDay) {
         // Если один день, возвращаем hh:mm-hh:mm
-        return `${formatTime(start)}-${formatTime(end)}`;
+        return `${formatTime(start)} \u2014 ${formatTime(end)}`;
     } else {
         // Если разные дни, возвращаем hh:mm и количество дней
         const days = getDaysDifference(start, end);

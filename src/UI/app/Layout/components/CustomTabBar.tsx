@@ -1,21 +1,14 @@
 import React from 'react';
 import { View, Platform, Pressable } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { customTabBarStyle } from './CustomTabBar.style';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const inactiveIconNames: Record<string, string> = {
-    Home: 'home',
-    Profile: 'person',
-    Settings: 'settings',
+const iconNames: Record<string, string> = {
+    Home: 'event-note',
+    Profile: 'account-circle',
 };
-
-const activeIconNames = Object.fromEntries(
-    Object.entries(inactiveIconNames).map(([key, value]) => {
-        return [key, `${value}-outline`];
-    })
-);
 
 /**
  * Кастомный компонент навигационной панели, переопределяющий дефолтный компонент
@@ -36,9 +29,7 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
                 const { options } = descriptors[route.key];
                 const isFocused = state.index === index;
 
-                const iconName = isFocused
-                    ? inactiveIconNames[route.name] || 'circle'
-                    : activeIconNames[route.name] || 'circle-outline';
+                const iconName = iconNames[route.name];
 
                 const onPress = () => {
                     const event = navigation.emit({
@@ -60,10 +51,10 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
                         style={customTabBarStyle.tab}
                     >
                         <View style={customTabBarStyle.iconContainer}>
-                            <Ionicons
+                            <MaterialIcons
                                 // @ts-ignore
                                 name={iconName}
-                                size={24}
+                                size={30}
                                 color={isFocused ? '#007AFF' : '#888'}
                             />
                         </View>

@@ -11,7 +11,7 @@ const EventsStack = createNativeStackNavigator<EventStackParamList>();
 
 export const EventsRoute = () => {
     return (
-        <EventsStack.Navigator screenOptions={{ headerShown: false }}>
+        <EventsStack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
             <EventsStack.Screen
                 name="EventView"
                 component={EventView}

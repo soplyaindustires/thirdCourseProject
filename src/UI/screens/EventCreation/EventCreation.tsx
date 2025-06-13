@@ -1,7 +1,6 @@
-import { useRef, useState } from 'react';
-import RNDateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { useState } from 'react';
 import { Stack } from '../../designSystem/components/Stack/Stack';
-import { Pressable, ScrollView, TextInput, View } from 'react-native';
+import { ScrollView, TextInput } from 'react-native';
 import { HseText } from '../../designSystem/components/HseText/HseText';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ProfileStackParamList } from '../../app/Layout/routes/ProfileRoute';
@@ -9,13 +8,13 @@ import { GoBackButton } from '../../designSystem/components/GoBackButton/GoBackB
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { EventCreationStyle } from './EventCreation.style';
 import { colorPalette } from '../../designSystem/constants.style';
-import Modal from 'react-native-modal';
 import { HseButton } from '../../designSystem/components/HseButton/HseButton';
 import { appEventModel } from '../../../utils/models/models';
 import { useAuth } from '../../app/Auth/AuthContext/AuthContext';
+import { DatePicker } from './components/DatePicker';
+import Toast from 'react-native-toast-message';
 
 type EventCreationScreenProps = NativeStackScreenProps<ProfileStackParamList, 'CreateEvent'>;
-type Modes = 'date' | 'time';
 
 export const EventCreation = ({ navigation }: EventCreationScreenProps) => {
     const { user } = useAuth();
@@ -27,10 +26,6 @@ export const EventCreation = ({ navigation }: EventCreationScreenProps) => {
     const [startDate, setStartDate] = useState<Date>(new Date(Date.now()));
     const [endDate, setEndDate] = useState<Date>(new Date(Date.now() + 1000 * 60 * 60));
 
-    const [isPickerVisible, setPickerVisible] = useState<boolean>(false);
-    const [mode, setMode] = useState<Modes>('date');
-    const [pickForStart, setPickForStart] = useState<boolean>(true);
-
     const [infoURL, setInfoURL] = useState<string>();
     const [registrationURL, setRegistrationURL] = useState<string>();
 
@@ -38,36 +33,20 @@ export const EventCreation = ({ navigation }: EventCreationScreenProps) => {
         navigation.navigate('ProfileScreen');
     };
 
-    const showPicker = (pickerMode: Modes) => {
-        setMode(pickerMode);
-        setPickerVisible(true);
-    };
+    const onStartDateChange = (date?: Date) => {
+        const normalizedDate = date || startDate;
 
-    const pickStart = (pickerMode: Modes) => {
-        setPickForStart(true);
-        showPicker(pickerMode);
-    };
+        setStartDate(normalizedDate);
 
-    const pickEnd = (pickerMode: Modes) => {
-        console.log('picking end');
-        setPickForStart(false);
-        showPicker(pickerMode);
-    };
-
-    const onDateChange = (event?: DateTimePickerEvent, date?: Date) => {
-        let normalizedDate;
-        if (pickForStart) {
-            normalizedDate = date || startDate;
-            setStartDate(normalizedDate);
-            if (normalizedDate.getTime() > endDate.getTime()) {
-                setEndDate(new Date(normalizedDate.getTime() + 1000 * 60 * 60));
-            }
-        } else {
-            normalizedDate = date || endDate;
-            setEndDate(normalizedDate);
+        if (normalizedDate.getTime() > endDate.getTime()) {
+            setEndDate(new Date(normalizedDate.getTime() + 1000 * 60 * 60));
         }
+    };
 
-        setPickerVisible(false);
+    const onEndDateChange = (date?: Date) => {
+        const normalizedDate = date || endDate;
+
+        setEndDate(normalizedDate);
     };
 
     const onCreatePress = () => {
@@ -84,7 +63,18 @@ export const EventCreation = ({ navigation }: EventCreationScreenProps) => {
             end: endDate.toISOString(),
             participants: [],
             creatorId: user.id,
+            infoURL: infoURL,
+            registrationURL: registrationURL,
         });
+
+        navigation.goBack();
+        Toast.show({
+            type: 'tomatoToast',
+            text1: `Событие ${name} создано!`,
+        });
+        setTimeout(() => {
+            Toast.hide();
+        }, 2000);
     };
 
     return (
@@ -140,45 +130,22 @@ export const EventCreation = ({ navigation }: EventCreationScreenProps) => {
                             justify="flex-start"
                             align="flex-start"
                             gap="medium"
+                            maxWidth
                         >
                             <HseText
                                 variant="title"
                                 color="textSecondary"
                             >
-                                Начало:
+                                Начало
                             </HseText>
-                            <Stack
-                                justify="space-between"
-                                direction="row"
-                                gap="big"
-                                style={EventCreationStyle.timeContainer}
-                            >
-                                <Stack direction="row">
-                                    <Pressable onPress={() => pickStart('date')}>
-                                        <HseText size={16}>
-                                            {startDate.toLocaleDateString('ru-RU', {
-                                                year: 'numeric',
-                                                month: 'short',
-                                                day: 'numeric',
-                                            })}
-                                        </HseText>
-                                    </Pressable>
-                                </Stack>
-                                <View style={EventCreationStyle.timeSplitter} />
-                                <Stack direction="row">
-                                    <Pressable onPress={() => pickStart('time')}>
-                                        <HseText size={16}>
-                                            {startDate.toLocaleTimeString('ru-RU', {
-                                                hour: '2-digit',
-                                                minute: '2-digit',
-                                            })}
-                                        </HseText>
-                                    </Pressable>
-                                </Stack>
-                            </Stack>
+                            <DatePicker
+                                value={startDate}
+                                onChange={onStartDateChange}
+                            />
                         </Stack>
                         {/* КОНЕЦ СОБЫТИЯ */}
                         <Stack
+                            maxWidth
                             justify="flex-start"
                             align="flex-start"
                             gap="medium"
@@ -187,37 +154,12 @@ export const EventCreation = ({ navigation }: EventCreationScreenProps) => {
                                 variant="title"
                                 color="textSecondary"
                             >
-                                Конец:
+                                Конец
                             </HseText>
-                            <Stack
-                                justify="space-between"
-                                direction="row"
-                                gap="big"
-                                style={EventCreationStyle.timeContainer}
-                            >
-                                <Stack direction="row">
-                                    <Pressable onPress={() => pickEnd('date')}>
-                                        <HseText size={16}>
-                                            {endDate.toLocaleDateString('ru-RU', {
-                                                year: 'numeric',
-                                                month: 'short',
-                                                day: 'numeric',
-                                            })}
-                                        </HseText>
-                                    </Pressable>
-                                </Stack>
-                                <View style={EventCreationStyle.timeSplitter} />
-                                <Stack direction="row">
-                                    <Pressable onPress={() => pickEnd('time')}>
-                                        <HseText size={16}>
-                                            {endDate.toLocaleTimeString('ru-RU', {
-                                                hour: '2-digit',
-                                                minute: '2-digit',
-                                            })}
-                                        </HseText>
-                                    </Pressable>
-                                </Stack>
-                            </Stack>
+                            <DatePicker
+                                value={endDate}
+                                onChange={onEndDateChange}
+                            />
                         </Stack>
                         {/* КОНЕЦ ВЫБОРА ВРЕМЕНИ */}
                         <TextInput
@@ -242,16 +184,6 @@ export const EventCreation = ({ navigation }: EventCreationScreenProps) => {
                     </Stack>
                 </ScrollView>
             </Stack>
-
-            {isPickerVisible && (
-                <RNDateTimePicker
-                    value={pickForStart ? startDate : endDate}
-                    mode={mode}
-                    // display={Platform.OS === 'ios' ? 'inline' : 'default'}
-                    onChange={onDateChange}
-                    locale="ru-RU"
-                />
-            )}
         </SafeAreaView>
     );
 };
