@@ -10,8 +10,13 @@ export const mockEventsData: HseEvent[] = [
     place: 'Кампус Костина, зал 207',
     creatorId: 2,
     participants: [1],
+<<<<<<< HEAD
 	 infoURL: "https://",        // ← добавлено
   	registrationURL: "https://" // ← добавлено
+=======
+	infoURL: 'https://',           
+    registrationURL: 'https://'  
+>>>>>>> origin/main
   },
   {
     id: 102,
@@ -22,8 +27,13 @@ export const mockEventsData: HseEvent[] = [
     place: 'Кампус Костина, зал 207',
     creatorId: 2,
     participants: [],
+<<<<<<< HEAD
 	 infoURL: "https://",         // ← добавлено
   registrationURL:"https://" // ← добавлено
+=======
+	infoURL: null,
+    registrationURL: null 
+>>>>>>> origin/main
   },
   {
     id: 103,
@@ -34,8 +44,13 @@ export const mockEventsData: HseEvent[] = [
     place: 'Кампус Костина, зал 207',
     creatorId: 2,
     participants: [1, 3],
+<<<<<<< HEAD
 	 infoURL: "https://",         // ← добавлено
   registrationURL: "https://" // ← добавлено
+=======
+	infoURL: 'https://',  
+    registrationURL: 'https://'  
+>>>>>>> origin/main
   },
 ]; //фейк данные
 

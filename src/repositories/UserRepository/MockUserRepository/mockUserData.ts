@@ -1,4 +1,4 @@
-import { User } from '../UserRepository.interface'
+import { User } from '../UserRepository.interface';
 
 export const mockUsersData: User[] = [
   {
@@ -13,6 +13,7 @@ export const mockUsersData: User[] = [
 	educationalProgram: 'Бизнес-информатика', 
 	group: '22БИ',           
 	course: 3,     
+
   },
   {
     id: 2,

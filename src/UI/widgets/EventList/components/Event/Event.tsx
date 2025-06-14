@@ -1,29 +1,32 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 import { dummyEvents } from '../../dummyEvent';
 import { EventStyle } from './Event.style';
 import { Stack } from '../../../../designSystem/components/Stack/Stack';
-import { typography } from '../../../../designSystem/constants.style';
 import { getMonthNameByNumber } from '../../../../../utils/dateUtils/monthMapper';
 
 import { openURL } from 'expo-linking';
 import { HseText } from '../../../../designSystem/components/HseText/HseText';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { EventStackParamList } from '../../../../app/Layout/routes/EventsRoute';
+import { HseEvent } from '../../../../../repositories/EventsRepository/EventsRepository.interface';
 
 type EventProps = {
-    eventId: number;
+    data: HseEvent;
 };
 
-export const Event = ({ eventId }: EventProps) => {
-    /**
-     * Заглушка
-     */
-    const data = dummyEvents.find(({ id }) => id === eventId);
+export const Event = ({ data }: EventProps) => {
+    const navigation = useNavigation<NativeStackScreenProps<EventStackParamList>['navigation']>();
 
     if (!data) {
         return null;
     }
 
     const start = new Date(data.start);
+
+    const onTitlePress = () => {
+        navigation.navigate('EventInfo', { eventId: data.id });
+    };
 
     return (
         <Stack
@@ -53,12 +56,14 @@ export const Event = ({ eventId }: EventProps) => {
                 align="flex-start"
                 style={{ flexShrink: 1 }}
             >
-                <HseText
-                    variant="title"
-                    numberOfLines={3}
-                >
-                    {data.name}
-                </HseText>
+                <Pressable onPress={onTitlePress}>
+                    <HseText
+                        variant="title"
+                        numberOfLines={3}
+                    >
+                        {data.title}
+                    </HseText>
+                </Pressable>
                 <HseText
                     size={16}
                     color="textSecondary"

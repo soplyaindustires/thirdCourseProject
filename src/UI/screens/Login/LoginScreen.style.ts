@@ -8,24 +8,25 @@ export const LoginScreenStyle = StyleSheet.create({
         backgroundColor: colorPalette.backgroundPrimary,
     },
     top: {
-        flexGrow: 1,
+        flex: 1,
         width: '100%',
+        gap: 8,
     },
     auth: {
-        flexGrow: 1,
+        flex: 1,
         width: '100%',
     },
     bottom: {
-        flexGrow: 1,
+        flex: 0.8,
         width: '100%',
     },
     input: {
         width: '100%',
         borderWidth: 1,
         borderColor: '#ccc',
-        borderRadius: borderRadiusPalette.medium,
+        borderRadius: borderRadiusPalette.big,
         paddingHorizontal: paddingPalette.big,
         marginBottom: paddingPalette.medium,
-        fontSize: 16,
+        fontSize: 20,
     },
 });

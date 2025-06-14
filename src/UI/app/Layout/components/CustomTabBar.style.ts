@@ -6,8 +6,9 @@ export const customTabBarStyle = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         backgroundColor: colorPalette.backgroundPrimary,
-        paddingTop: paddingPalette.medium,
-        elevation: 5,
+        paddingTop: paddingPalette.big,
+        borderTopColor: '#ddd',
+        borderTopWidth: 1,
     },
     tab: {
         flex: 1,

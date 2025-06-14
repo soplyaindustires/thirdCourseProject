@@ -7,8 +7,13 @@ export type HseEvent = {
     place: string; // Место проведения
     creatorId: number; // Кто создал событие (ID пользователя)
     participants: number[]; // Участники (ID пользователей)
+<<<<<<< HEAD
 	infoURL: string | null;          // ← добавлено
   	registrationURL: string | null;  // ← добавлено
+=======
+	infoURL: string | null;
+  	registrationURL: string | null; 
+>>>>>>> origin/main
 };
 
 export interface EventsRepository {
@@ -52,4 +57,6 @@ export interface EventsRepository {
      * @param eventId - ID события
      */
     leaveEvent(userId: number, eventId: number): Promise<void>;
+
+	getEventsByCreator(creatorId: number): Promise<HseEvent[]>;
 }

@@ -64,5 +64,10 @@ export class EventModel {
   async leaveEvent(userId: number, eventId: number): Promise<void> {
     await this.repository.leaveEvent(userId, eventId);
   }
+
+
+async getEventsByCreator(creatorId: number): Promise<HseEvent[]> {
+  return await this.repository.getEventsByCreator(creatorId);
+}
 }
 

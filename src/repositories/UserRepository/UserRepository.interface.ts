@@ -37,6 +37,7 @@ export interface UserRepository {
      * @param password - Пароль
      * @param role - Роль пользователя ('user' или 'creator')
      */
+<<<<<<< HEAD
      registerUser(
     login: string,
     password: string,
@@ -46,6 +47,9 @@ export interface UserRepository {
     group: string,
     course: number
   ): Promise<User>;
+=======
+    registerUser(data: Omit<User, 'id' | 'registeredEvents' | 'createdEvents' | 'createdDate'>): Promise<User>;
+>>>>>>> origin/main
 
     /**
      * Получить список всех пользователей (полезно на этапе разработки)

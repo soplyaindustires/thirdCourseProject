@@ -9,7 +9,7 @@ type Gap = keyof typeof paddingPalette;
 type Padding = keyof typeof paddingPalette;
 type BorderRadius = keyof typeof borderRadiusPalette;
 
-type StackProps = {
+export type StackProps = {
     direction?: FlexDirection;
     align?: AlignItems;
     justify?: JustifyContent;
@@ -17,6 +17,8 @@ type StackProps = {
     padding?: Padding;
     borderRadius?: BorderRadius;
     style?: StyleProp<ViewStyle>;
+    maxHeight?: boolean;
+    maxWidth?: boolean;
     children: ReactNode;
 };
 
@@ -27,6 +29,8 @@ export const Stack: React.FC<StackProps> = ({
     gap = 'none',
     borderRadius = 'none',
     padding = 'none',
+    maxHeight = false,
+    maxWidth = false,
     style,
     children,
 }) => {
@@ -39,6 +43,14 @@ export const Stack: React.FC<StackProps> = ({
         padding: paddingPalette[padding],
         borderRadius: borderRadiusPalette[borderRadius],
     };
+
+    if (maxHeight) {
+        containerStyle.height = '100%';
+    }
+
+    if (maxWidth) {
+        containerStyle.width = '100%';
+    }
 
     return (
         <View style={[containerStyle, style]}>

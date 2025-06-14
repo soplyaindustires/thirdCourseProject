@@ -2,18 +2,23 @@ import { Stack } from '../../designSystem/components/Stack/Stack';
 import { dummyEvents } from './dummyEvent';
 import { Event } from './components/Event/Event';
 import { EventListStyle } from './EventList.style';
+import { HseEvent } from '../../../repositories/EventsRepository/EventsRepository.interface';
 
-export const EventList = () => {
+type EventListProps = {
+    data: HseEvent[];
+};
+
+export const EventList = ({ data }: EventListProps) => {
     return (
         <Stack
             style={EventListStyle.list}
             gap="medium"
             align="flex-start"
         >
-            {dummyEvents.map(({ id }) => (
+            {data.map(data => (
                 <Event
-                    key={id}
-                    eventId={id}
+                    key={data.id}
+                    data={data}
                 />
             ))}
         </Stack>
