@@ -16,15 +16,28 @@ export class MockUserRepository implements UserRepository {
     return user;
   }
 
-  async registerUser(data: Omit<User, 'id' | 'registeredEvents' | 'createdEvents' | 'createdDate'>): Promise<User> {
+  async registerUser(
+  login: string,
+  password: string,
+  role: 'user' | 'creator',
+  fullName: string,
+  educationalProgram: string,
+  group: string,
+  course: number
+): Promise<User> {
   const newUser = {
     id: Date.now(),
-    ...data,
+    login,
+    password,
+    role,
     registeredEvents: [],
     createdEvents: [],
-    createdDate: new Date().toISOString()
+    createdDate: new Date().toISOString(),
+    fullName,
+    educationalProgram,
+    group,
+    course
   };
-
   this.users.push(newUser);
   return newUser;
 }

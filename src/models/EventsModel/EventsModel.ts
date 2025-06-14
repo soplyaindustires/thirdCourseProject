@@ -21,18 +21,27 @@ export class EventModel {
     return await this.repository.getAllEvents();
   }
 
-  /**
-   * Создать новое событие
-   */
-  async createEvent(data: Omit<HseEvent, 'id'>): Promise<HseEvent> {
+ async createEvent(data: Omit<HseEvent, 'id'>): Promise<HseEvent> {
+    this.validateUrls(data.infoURL, data.registrationURL);
     return await this.repository.createEvent(data);
   }
 
-  /**
-   * Обновить существующее событие
-   */
   async updateEvent(data: HseEvent): Promise<HseEvent> {
+    this.validateUrls(data.infoURL, data.registrationURL);
     return await this.repository.updateEvent(data);
+  }
+
+  // Проверка ссылок
+  private validateUrls(...urls: (string | null)[]): void {
+    for (const url of urls) {
+      if (url === null) continue;
+
+      try {
+        new URL(url); // если не бросится ошибка → значит, это валидный URL
+      } catch (e) {
+        throw new Error(`Некорректный URL: ${url}`);
+      }
+    }
   }
 
   /**
