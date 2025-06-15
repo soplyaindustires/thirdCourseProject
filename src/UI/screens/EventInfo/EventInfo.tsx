@@ -86,7 +86,7 @@ export const EventInfo = ({ navigation, route }: EventInfoProps) => {
 
         Toast.show({
             type: 'tomatoToast',
-            text1: `Событие ${data.title} удалено!`,
+            text1: `Событие удалено!`,
         });
         setTimeout(() => {
             Toast.hide();

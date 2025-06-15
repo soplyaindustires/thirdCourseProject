@@ -70,7 +70,7 @@ export const EventCreation = ({ navigation }: EventCreationScreenProps) => {
         navigation.goBack();
         Toast.show({
             type: 'tomatoToast',
-            text1: `Событие ${name} создано!`,
+            text1: `Событие создано!`,
         });
         setTimeout(() => {
             Toast.hide();

@@ -22,7 +22,7 @@ export class EventModel {
     }
 
     async createEvent(data: Omit<HseEvent, 'id'>): Promise<HseEvent> {
-        this.validateUrls(data.infoURL, data.registrationURL);
+        //this.validateUrls(data.infoURL, data.registrationURL);
         return await this.repository.createEvent(data);
     }
 

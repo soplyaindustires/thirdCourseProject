@@ -86,14 +86,14 @@ export const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
                 <Stack
                     direction="row"
                     justify="flex-start"
-                    gap="large"
+                    gap="big"
                     maxWidth
                     style={profileScreenStyle.userData}
                 >
                     <View style={profileScreenStyle.circle}>
                         <MaterialCommunityIcons
                             name="account"
-                            size={24}
+                            size={30}
                             color="black"
                         />
                     </View>
@@ -109,8 +109,11 @@ export const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
                             direction="row"
                         >
                             <HseText
-                                size={16}
+                                size={14}
                                 color="textSecondary"
+                                numberOfLines={2}
+                                textBreakStrategy="highQuality"
+                                style={{ width: '90%' }}
                             >{`${user.educationalProgram}. ${user.course}-й курс, ${user.group}`}</HseText>
                         </Stack>
                     </Stack>

@@ -13,11 +13,14 @@ import { useAuth } from '../../app/Auth/AuthContext/AuthContext';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ProfileStackParamList } from '../../app/Layout/routes/ProfileRoute';
 import { GoBackButton } from '../../designSystem/components/GoBackButton/GoBackButton';
+import { useIsFocused } from '@react-navigation/native';
 
 type CreatedEventsScreenProps = NativeStackScreenProps<ProfileStackParamList, 'CreatedEvents'>;
 
 export const CreatedEventsScreen = ({ navigation }: CreatedEventsScreenProps) => {
     const { user } = useAuth();
+
+    const focused = useIsFocused();
 
     if (!user) {
         throw new Error('aaaaaaaaaaa');
@@ -39,7 +42,7 @@ export const CreatedEventsScreen = ({ navigation }: CreatedEventsScreenProps) =>
         };
 
         request();
-    });
+    }, [focused]);
 
     const onGoBackPress = () => {
         navigation.goBack();

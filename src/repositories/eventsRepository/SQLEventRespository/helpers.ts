@@ -8,7 +8,7 @@ export const data: HseEvent[] = [
         start: '2025-03-10T18:00:00Z',
         end: '2025-03-10T20:00:00Z',
         place: 'Кампус Костина, зал 207',
-        creatorId: 2,
+        creatorId: 1,
         participants: [1],
         infoURL: 'https://', // ← добавлено
         registrationURL: 'https://', // ← добавлено
@@ -20,7 +20,7 @@ export const data: HseEvent[] = [
         start: '2025-04-01T09:00:00Z',
         end: '2025-04-03T18:00:00Z',
         place: 'Кампус Костина, зал 207',
-        creatorId: 2,
+        creatorId: 1,
         participants: [],
         infoURL: 'https://', // ← добавлено
         registrationURL: 'https://', // ← добавлено
@@ -32,7 +32,7 @@ export const data: HseEvent[] = [
         start: '2025-05-15T16:00:00Z',
         end: '2025-05-15T17:30:00Z',
         place: 'Кампус Костина, зал 207',
-        creatorId: 2,
+        creatorId: 1,
         participants: [1, 3],
         infoURL: 'https://', // ← добавлено
         registrationURL: 'https://', // ← добавлено
