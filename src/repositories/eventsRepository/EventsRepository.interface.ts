@@ -3,17 +3,12 @@ export type HseEvent = {
     title: string; // Название события
     description: string; // Описание
     start: string; // Дата начала
-    end: string;   // Дата окончания
+    end: string; // Дата окончания
     place: string; // Место проведения
     creatorId: number; // Кто создал событие (ID пользователя)
     participants: number[]; // Участники (ID пользователей)
-<<<<<<< HEAD
-	infoURL: string | null;          // ← добавлено
-  	registrationURL: string | null;  // ← добавлено
-=======
-	infoURL: string | null;
-  	registrationURL: string | null; 
->>>>>>> origin/main
+    infoURL: string | null;
+    registrationURL: string | null;
 };
 
 export interface EventsRepository {
@@ -28,14 +23,14 @@ export interface EventsRepository {
      */
     getAllEvents(): Promise<HseEvent[]>;
 
-     /**
-   	* Создать новое событие
-   	*/
+    /**
+     * Создать новое событие
+     */
     createEvent(data: Omit<HseEvent, 'id'>): Promise<HseEvent>;
 
-   /**
-   * Обновить существующее событие
-   */
+    /**
+     * Обновить существующее событие
+     */
     updateEvent(data: HseEvent): Promise<HseEvent>;
 
     /**
@@ -58,5 +53,5 @@ export interface EventsRepository {
      */
     leaveEvent(userId: number, eventId: number): Promise<void>;
 
-	getEventsByCreator(creatorId: number): Promise<HseEvent[]>;
+    getEventsByCreator(creatorId: number): Promise<HseEvent[]>;
 }

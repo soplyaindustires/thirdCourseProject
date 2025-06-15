@@ -7,11 +7,11 @@ export type User = {
     role: 'user' | 'creator';
     registeredEvents: number[]; // Список ID событий, куда записан пользователь.
     createdEvents: number[]; // Список ID событий, которые он создал.
-	createdDate: string; // Дата регистрации
-	fullName: string; 
-	educationalProgram: string; 
-	group: string;           
-	course: number;          
+    createdDate: string; // Дата регистрации
+    fullName: string;
+    educationalProgram: string;
+    group: string;
+    course: number;
 };
 /**
  * Репозиторий - штучка для прямого доступа к данным. Т.е. сразу к sql базе данных, или к noSql базе данных
@@ -37,23 +37,18 @@ export interface UserRepository {
      * @param password - Пароль
      * @param role - Роль пользователя ('user' или 'creator')
      */
-<<<<<<< HEAD
-     registerUser(
-    login: string,
-    password: string,
-    role: 'user' | 'creator',
-    fullName: string,
-    educationalProgram: string,
-    group: string,
-    course: number
-  ): Promise<User>;
-=======
-    registerUser(data: Omit<User, 'id' | 'registeredEvents' | 'createdEvents' | 'createdDate'>): Promise<User>;
->>>>>>> origin/main
+    registerUser(
+        login: string,
+        password: string,
+        role: 'user' | 'creator',
+        fullName: string,
+        educationalProgram: string,
+        group: string,
+        course: number
+    ): Promise<User>;
 
     /**
      * Получить список всех пользователей (полезно на этапе разработки)
      */
     /* getAllUsers(): Promise<User[]>; */
 }
-

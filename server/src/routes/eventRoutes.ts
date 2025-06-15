@@ -7,6 +7,7 @@ const router: Router = express.Router();
  * GET /api/events/:id
  * Получить событие по ID
  */
+//@ts-ignore
 router.get('/:id', eventController.getEventById);
 
 /**

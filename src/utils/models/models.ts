@@ -1,7 +1,7 @@
 import { UserModel } from '../../models/UserModel/UserModel';
-import { MockUserRepository } from '../../repositories/UserRepository/MockUserRepository/mockUserRepository';
+import { SQLUserRepository } from '../../repositories/UserRepository/SQLUserRepository/SQLUserRepository';
 import { EventModel } from '../../models/EventsModel/EventsModel';
-import { MockEventsRepository } from '../../repositories/EventsRepository/MockEventRespository/mockEventRepository';
+import { SQLEventsRepository } from '../../repositories/EventsRepository/SQLEventRespository/SQLEventRepository';
 
-export const appUserModel = new UserModel(new MockUserRepository());
-export const appEventModel = new EventModel(new MockEventsRepository());
+export const appUserModel = new UserModel(new SQLUserRepository());
+export const appEventModel = new EventModel(new SQLEventsRepository());

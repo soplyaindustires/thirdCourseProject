@@ -37,6 +37,8 @@ export const EventInfo = ({ navigation, route }: EventInfoProps) => {
 
     const [joined, setJoined] = useState<boolean>();
 
+    const [r, refetch] = useState(false);
+
     useEffect(() => {
         const request = async () => {
             try {
@@ -49,7 +51,7 @@ export const EventInfo = ({ navigation, route }: EventInfoProps) => {
         };
 
         request();
-    }, []);
+    }, [r]);
 
     if (!data) {
         return null;
@@ -100,6 +102,8 @@ export const EventInfo = ({ navigation, route }: EventInfoProps) => {
         } else {
             appEventModel.leaveEvent(user.id, data.id).then(_ => setJoined(false));
         }
+
+        refetch(prev => !prev);
     };
 
     return (
@@ -205,6 +209,13 @@ export const EventInfo = ({ navigation, route }: EventInfoProps) => {
                                     size={24}
                                 />
                                 <HseText size={20}>{data.place}</HseText>
+                            </View>
+                            <View style={EventInfoStyle.fieldWithIcon}>
+                                <MaterialIcons
+                                    name="person"
+                                    size={24}
+                                />
+                                <HseText size={20}>{`${data.participants.length} участников`}</HseText>
                             </View>
                         </Stack>
                         <HseText
