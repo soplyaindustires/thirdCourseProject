@@ -1,0 +1,71 @@
+{
+    "expo": {
+        "name": "project3",
+        "slug": "project3",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "light",
+        "newArchEnabled": true,
+        "backgroundColor": "#ffffff",
+        "splash": {
+            "image": "./assets/splash-icon.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            },
+            "package": "com.anonymous.project3"
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "plugins": [
+            [
+                "expo-font",
+                {
+                    "fonts": [
+                        "./assets/fonts/SegoeUI-Medium.ttf",
+                        "./assets/fonts/SegoeUI-Italic.ttf",
+                        "./assets/fonts/SegoeUI-Bold.ttf"
+                    ],
+                    "android": {
+                        "fonts": [
+                            {
+                                "fontFamily": "SegoeUI",
+                                "fontDefinitions": [
+                                    {
+                                        "path": "./assets/fonts/SegoeUI-Medium.ttf",
+                                        "weight": 400
+                                    },
+                                    {
+                                        "path": "./assets/fonts/SegoeUI-Italic.ttf",
+                                        "weight": 400,
+                                        "style": "italic"
+                                    },
+                                    {
+                                        "path": "./assets/fonts/SegoeUI-Bold.ttf",
+                                        "weight": 700
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "ios": {
+                        "fonts": [
+                            "./assets/fonts/SegoeUI-Medium.ttf",
+                            "./assets/fonts/SegoeUI-Italic.ttf",
+                            "./assets/fonts/SegoeUI-Bold.ttf"
+                        ]
+                    }
+                }
+            ]
+        ]
+    }
+}
